@@ -1,6 +1,6 @@
-# RVIZ-Installation-
+# RVIZ + GAZEBO  + Arduino + Rosserial Arduino + Ros_lib + Arduino upload installation 
 
-
+* Running RVIZ + Controlling the motors in sumulation + Move it in RVIZ + GAZEBO launch 
 
 How to start up RVIZ 
 
@@ -28,13 +28,13 @@ cd ~/catkin_ws
 8)	All the commands below are the commands needed from ROS
 rosdep install --from-paths src --ignore-src -r -y
 
-sudo apt-get install ros-kinetic-moveit
+sudo apt-get install ros-melodic-moveit
 
-sudo apt-get install ros-kinetic-joint-state-publisher ros-kinetic-joint-state-publisher-gui
+sudo apt-get install ros-melodic-joint-state-publisher ros-kinetic-joint-state-publisher-gui
 
-sudo apt-get install ros-kinetic-gazebo-ros-control joint-state-publisher
+sudo apt-get install ros-melodicc-gazebo-ros-control joint-state-publisher
 
-sudo apt-get install ros-kinetic-ros-controllers ros-kinetic-ros-control
+sudo apt-get install ros-melodic-ros-controllers ros-kinetic-ros-control
 
 9)	Enter the bashrc file and enter the following text below
 sudo nano ~/.bashrc
@@ -50,3 +50,75 @@ source ~/.bashrc
 11)	Launch the RVIZ using this command 
 roslaunch robot_arm_pkg check_motors.launch
 
+
+------------------------------------------------------------------------------------------------------------------------------------------
+How to install Arduino IDE 
+
+1)	Enter the website from the link 
+https://www.arduino.cc/en/software
+
+2)	Choose the download option that is suitable I have chosen LINUX 64 
+
+
+3)	Extract the file downloaded  
+
+
+4)	Open in terminal 
+
+
+5)	Type the command ./install.sh in terminal 
+
+
+6)	Check if the program is here 
+
+
+7)	Open the program 
+
+
+8)	A new folder called Arduino will appear after opening the program 
+
+
+---------------------------------------------------------------------------------------------------------------------------------
+How to  install Rosserial 
+
+1)	Use these two commands below 
+
+$ sudo apt-get install ros-melodic-rosserial-arduino
+$ sudo apt-get install ros-melodic-rosserial
+
+
+-----------------------------------------------------------------------------------------------------------------------------
+Install Ros_lib 
+
+To install you must type these commands : 
+$cd <sketchbook>/libraries 
+ $rm -rf ros_lib
+rosrun rosserial_arduino make_libraries.py
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+How to upload the Arduino code 
+- select the Arduino port to be used on Ubuntu system 
+- change the permissions (it might be ttyACM) 
+$ ls -l /dev |grep ttyUSB 
+$ sudo chmod -R 777 /dev/ttyUSB0 
+- upload the code from Arduino IDE 
+----------------------------------------------------------------------------------------------------------------------------- 
+Run Rviz 
+$ roslaunch robot_arm_pkg check_motors.launch 
+$ rosrun rosserial_python serial_node.py _port:=/dev/ttyUSB0 _baud:=115200 
+----------------------------------------------------------------------------------------------------------------------------- 
+Controlling the motors in simulation 
+ $ roslaunch robot_arm_pkg check_motors.launch 
+$ roslaunch robot_arm_pkg check_motors_gazebo.launch 
+$ rosrun robot_arm_pkg joint_states_to_gazebo.py 
+You may need to change the permission 
+$ cd catkin/src/arduino_robot_arm/robot_arm_pkg/scripts 
+$ sudo chmod +x joint_states_to_gazebo.py  
+-------------------------------------------------------------------------------------------------------------------------- 
+Moveit in rviz  
+$ roslaunch moveit_pkg demo.launch $ 
+ 
+--------------------------------------------------------------------------------------------------------------------------- 
+Gazebo launch  
+$roslaunch moveit_pkg demo_gazebo.launch $
